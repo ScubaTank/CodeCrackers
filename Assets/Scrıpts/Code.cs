@@ -4,14 +4,15 @@ using UnityEngine;
 public class Code : ScriptableObject
 {
     private AudioClip[] audioClips; //the clips of sound that make up this code. starts empty.
-    [SerializeField]private string codeString; // the raw code string
+    [SerializeField] private string codeString; // the raw code string
     [SerializeField] private SoundLibrary soundLibrary;
 
     private void BuildAudioClips()
     {
+        codeString.ToLower();
         for (int i = 0; i < GetCodeLength(); i++)
         {
-            audioClips[i] = soundLibrary.GetAudioClip(i);
+            audioClips[i] = soundLibrary.GetAudioClip(codeString[i] - 'a');
         }
     }
 
@@ -26,4 +27,6 @@ public class Code : ScriptableObject
     {
         return codeString.Length;
     }
+
+
 }
