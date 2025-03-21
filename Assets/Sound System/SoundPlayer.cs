@@ -11,20 +11,13 @@ public class SoundPlayer : MonoBehaviour
     [SerializeField] public AudioSource audioSource;
     private AudioClip[] _codeClips;
 
-    //This will be called the instant that a new code is generated.
+    //This will be called the instant that a new code is selected.
     public void NewCode(Code input){
-        _codeClips = BuildCodeClips(input);
-    }
 
-    //Assuming Code objects come with functions that aid in retrieving sounds, we use the following
-    private AudioClip[] BuildCodeClips(Code inputCode){
-        //first, retrieve the sounds necessary based on input's properties and store them in an array.
-        AudioClip[] sounds = new AudioClip[inputCode.GetCodeLength()]; //the CodeLength function should tell us how many sounds we will need.
-
-        for(int i = 0; i < sounds.Length; i++){
-            sounds[i] = inputCode.GetCodeSound(i); //CodeSound returns the audioclip necessary for the current letter, using the index as a parameter.
+        _codeClips = new AudioClip[input.GetCodeLength()];
+        for(int i = 0; i < input.GetCodeLength(); i++){
+            _codeClips[i] = input.GetCodeSound(i);
         }
-        return sounds;
     }
     
 
