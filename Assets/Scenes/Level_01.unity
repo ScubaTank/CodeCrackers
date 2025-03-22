@@ -1703,7 +1703,7 @@ GameObject:
   - component: {fileID: 836952754}
   - component: {fileID: 836952753}
   m_Layer: 5
-  m_Name: ExitButton
+  m_Name: ReturnToMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1775,7 +1775,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1513138064}
         m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
-        m_MethodName: exitGame
+        m_MethodName: ReturnToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1971,7 +1971,7 @@ GameObject:
   - component: {fileID: 1079412898}
   - component: {fileID: 1079412897}
   m_Layer: 5
-  m_Name: ExitButton
+  m_Name: ReturnToMenuText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2016,7 +2016,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Exit Game
+  m_text: Return To Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2888,6 +2888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvasGameObject: {fileID: 1261265656}
   _scoreManager: {fileID: 367642479}
+  _buttonParent: {fileID: 0}
 --- !u!4 &1513138065
 Transform:
   m_ObjectHideFlags: 0

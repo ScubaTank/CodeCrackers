@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
     [SerializeField] private GameObject _canvasGameObject;
     [SerializeField] private ScoreManager _scoreManager;
-    [SerializeField] private GameObject _buttonParent;
+    [SerializeField] private GameObject _settings;
 
     private bool isPaused = false;
     private GameObject panelButtons;
@@ -73,7 +74,7 @@ public class ButtonManager : MonoBehaviour
 
     public void playGame()
     {
-        //SceneManager.LoadScene(WhateverTheSceneIsCalled);
+        SceneManager.LoadScene("Level_01");
     }
 
     public void exitGame()
@@ -81,6 +82,14 @@ public class ButtonManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("Main_Menu");
+    }
 
+    public void OpenSettings()
+    {
+        _settings.SetActive(true);
+    }
 
 }
