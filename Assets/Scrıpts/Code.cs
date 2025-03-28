@@ -28,5 +28,15 @@ public class Code : ScriptableObject
         return codeString.Length;
     }
 
+    public string GetCodeString()
+    {
+        return codeString;
+    }
+
+
+
+    public string scrambler(){
+        
+    }
 
 }
