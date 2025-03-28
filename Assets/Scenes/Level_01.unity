@@ -2888,7 +2888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvasGameObject: {fileID: 1261265656}
   _scoreManager: {fileID: 367642479}
-  _buttonParent: {fileID: 0}
+  _settings: {fileID: 0}
 --- !u!4 &1513138065
 Transform:
   m_ObjectHideFlags: 0
