@@ -33,10 +33,4 @@ public class Code : ScriptableObject
         return codeString;
     }
 
-
-
-    public string scrambler(){
-        
-    }
-
 }
