@@ -35,8 +35,4 @@ public class Code : ScriptableObject
 
 
 
-    public string scrambler(){
-        
-    }
-
 }
