@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901d6a917bb1e0c4ba985951f8933051, type: 3}
   m_Name: Sage
   m_EditorClassIdentifier: 
-  codeString: Sage
-  soundLibrary: {fileID: 11400000, guid: 7d2477440983c6c41847a8c50043deb8, type: 2}
+  _codeString: Sage
+  _soundLibrary: {fileID: 11400000, guid: 7d2477440983c6c41847a8c50043deb8, type: 2}

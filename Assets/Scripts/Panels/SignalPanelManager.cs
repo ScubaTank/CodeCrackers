@@ -16,6 +16,6 @@ public class SignalPanelManager : MonoBehaviour
 
     public void PlaySound()
     {
-        _soundPlayer.PlaySounds();
+        _soundPlayer.PlayCodeClips();
     }
 }
