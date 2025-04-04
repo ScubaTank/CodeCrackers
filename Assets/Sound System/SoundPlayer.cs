@@ -9,6 +9,7 @@ using UnityEngine;
 public class SoundPlayer : MonoBehaviour
 {
     [SerializeField] public AudioSource audioSource;
+    [SerializeField] private SoundLibrary _soundLibrary;
     private AudioClip[] _codeClips;
 
     //This will be called the instant that a new code is selected.
@@ -21,8 +22,28 @@ public class SoundPlayer : MonoBehaviour
     }
     
 
-    private void PlaySounds(AudioClip[] audioClips){
-        StartCoroutine(PlaySoundsSequentially(audioClips));
+    public void PlayCodeClips(){
+        if (_codeClips.Length > 0)
+        {
+            StartCoroutine(PlaySoundsSequentially(_codeClips));
+        }
+        else
+        {
+            Debug.Log("Tried to play a sound while _codeClips was empty!");
+        }
+    }
+
+    public void PlaySynthClips(string synthCode)
+    {
+        AudioClip[] _synthClips = new AudioClip[synthCode.Length];
+        for (int i = 0; i < synthCode.Length; i++) {
+            if (synthCode[i] != '_')
+            {
+                _synthClips[i] = _soundLibrary.GetAudioClip(synthCode[i] - 'a');
+            }
+        }
+
+        StartCoroutine(PlaySoundsSequentially(_synthClips));
     }
 
 
@@ -37,5 +58,11 @@ public class SoundPlayer : MonoBehaviour
                 yield return null;
             }
         }
+    }
+
+    public void PlaySound(int idx)
+    {
+        audioSource.clip = _soundLibrary.GetAudioClip(idx);
+        audioSource.Play();
     }
 }

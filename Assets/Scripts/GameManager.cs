@@ -6,57 +6,75 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Image[] _codeLight;
-    [SerializeField] private Color[] _colorArray;
+    [Header("UI")]
     [SerializeField] private TMP_Text _text;
 
-    public string trueWord = "Fork";
-    //private string codedWord = "";
+    [Header("Code Handling")]
+    [SerializeField] private SoundPlayer _soundPlayer;
+    [SerializeField] private Code[] _codes;
+    private CodeColor[] _colorSequence;
+    private Code _currCode;
+
+    public enum CodeColor { Red, Green, Blue, Yellow};
 
     private void Start()
     {
-        SetColors();
-
-        Scrambler();
-
-
+        PickNewCode();
     }
 
-    public string Scrambler()
+    public void PickNewCode()
     {
+        //Clear previous values
+        _currCode = null;
+        _colorSequence = null;
+
+        //get a random code
+        _currCode = _codes[Random.Range(0, _codes.Length)];
+
+        //scramble it, and build audio clips from the scrambled version.
+        _currCode.BuildAudioClips(GetScrambledCode());
+
+        //assign it to the soundPlayer.
+        _soundPlayer.NewCode(_currCode);
+    }
+
+    public string GetScrambledCode()
+    {
+        if (_colorSequence == null)
+        {
+            SetColorSequence();
+        }
 
         bool isThereRed = false;
 
-        StringBuilder codedWord = new StringBuilder(trueWord);
+        StringBuilder scrambledWord = new StringBuilder(_currCode.GetCodeString());
 
         for(int i = 3; i >= 0; i--)
         {
-            //RED
-            if (_codeLight[i].color == _colorArray[0])
+            if (_colorSequence[i] == CodeColor.Red)
             {
-                Debug.Log("Did red!");
                 //swap first two letters, and two last letters.
-                char tempchar = codedWord[0];
-                codedWord[0] = codedWord[1];
-                codedWord[1] = tempchar;
+                char tempchar = scrambledWord[0];
+                scrambledWord[0] = scrambledWord[1];
+                scrambledWord[1] = tempchar;
 
-                tempchar = codedWord[2];
-                codedWord[2] = codedWord[3];
-                codedWord[3] = tempchar;
+                tempchar = scrambledWord[2];
+                scrambledWord[2] = scrambledWord[3];
+                scrambledWord[3] = tempchar;
 
                 isThereRed = true;
             }
 
             //BLUE
-            if (_codeLight[i].color == _colorArray[1])
+            if (_colorSequence[i] == CodeColor.Blue)
             {
-                Debug.Log("Did blue!");
+                //Debug.Log("Did blue!");
                 //first, check for a red
                 if (!isThereRed)
                 {
-                    foreach (Image c in _codeLight)
+                    foreach (CodeColor c in _colorSequence)
                     {
-                        if (c.color == _colorArray[0])
+                        if (c == CodeColor.Red)
                         {
                             isThereRed = true;
                         }
@@ -66,75 +84,71 @@ public class GameManager : MonoBehaviour
                 //there IS red
                 if (isThereRed)
                 {
-                    char tempchar = codedWord[i];
-                    codedWord[i] = codedWord[3];
-                    codedWord[3] = tempchar;
+                    char tempchar = scrambledWord[i];
+                    scrambledWord[i] = scrambledWord[3];
+                    scrambledWord[3] = tempchar;
                 }
             }
 
             //GREEN
-            if (_codeLight[i].color == _colorArray[2])
+            if (_colorSequence[i] == CodeColor.Green)
             {
-                Debug.Log("Did green!");
+                //Debug.Log("Did green!");
                 //if at the ends, swap them.
                 if (i == 0 || i == 3)
                 {
-                    char tempchar = codedWord[0];
-                    codedWord[0] = codedWord[3];
-                    codedWord[3] = tempchar;
+                    char tempchar = scrambledWord[0];
+                    scrambledWord[0] = scrambledWord[3];
+                    scrambledWord[3] = tempchar;
                 }
                 else //otherwise, swap the middle.
                 {
-                    char tempchar = codedWord[1];
-                    codedWord[1] = codedWord[2];
-                    codedWord[2] = tempchar;
+                    char tempchar = scrambledWord[1];
+                    scrambledWord[1] = scrambledWord[2];
+                    scrambledWord[2] = tempchar;
                 }
             }
 
             //YELLOW
-            if (_codeLight[i].color == _colorArray[3])
+            if (_colorSequence[i] == CodeColor.Yellow)
             {
 
-                Debug.Log("Did yellow!");
+                //Debug.Log("Did yellow!");
                 if (i == 3)
                 {
-                    char tempchar = codedWord[0];
-                    codedWord[0] = codedWord[3];
-                    codedWord[3] = tempchar;
+                    char tempchar = scrambledWord[0];
+                    scrambledWord[0] = scrambledWord[3];
+                    scrambledWord[3] = tempchar;
                 } 
                 else
                 {
-                    char tempchar = codedWord[i+1];
-                    codedWord[i+1] = codedWord[i];
-                    codedWord[i] = tempchar;
+                    char tempchar = scrambledWord[i+1];
+                    scrambledWord[i+1] = scrambledWord[i];
+                    scrambledWord[i] = tempchar;
                 }
-
-                
             }
-
-            Debug.Log("Current Word: " + codedWord.ToString());
         }
 
-        Debug.Log("Is there a red? : " + isThereRed);
+        _text.SetText("Code: " + scrambledWord.ToString());
 
-        _text.SetText("Code: " + codedWord.ToString());
-
-        return codedWord.ToString();
+        return scrambledWord.ToString().ToLower();
     }
 
-    public void SetColors()
+    public void SetColorSequence()
     {
-        foreach (Image count in _codeLight)
-        {
-            int index = Random.Range(0, 4);
+        //sets a random color sequence with which we will encode our string.
+        _colorSequence = new CodeColor[_currCode.GetCodeLength()];
+        
 
-            count.color = _colorArray[index];
+        for (int i = 0; i < _colorSequence.Length; i++)
+        {
+            _colorSequence[i] = (CodeColor)Random.Range(0, 4);
         }
     }
 
     public void CheckAnswer(TMP_InputField input)
     {
-        if (input.text ==  trueWord)
+        if (input.text ==  _currCode.GetCodeString())
         {
             Debug.Log("Hooray");
         }
@@ -143,4 +157,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("Not correct word");
         }
     }
+
+    public CodeColor[] GetColorSequence()
+    {
+        return _colorSequence;
+    }
+
 }

@@ -9,10 +9,8 @@ public class SoundLibrary : ScriptableObject
     {
       if(audioClips.Length < 26)
       {
-        //Debug.LogError("Audio clips are less than 26 the game should not continue.");
+        Debug.LogError("Audio clips are less than 26 the game should not continue.");
       }
-
-
     }
 
     public AudioClip GetAudioClip(int idx)

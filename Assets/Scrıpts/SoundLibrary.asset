@@ -13,4 +13,29 @@ MonoBehaviour:
   m_Name: SoundLibrary
   m_EditorClassIdentifier: 
   audioClips:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 44cbc27df64916542a6da2b8f59c8e2a, type: 3}
+  - {fileID: 8300000, guid: cbc4923fc503763449d1b53f7dba6f74, type: 3}
+  - {fileID: 8300000, guid: 3a3407d5fdf5f444fa6811c6d7c29be9, type: 3}
+  - {fileID: 8300000, guid: b228ef66bcc97de4480955ef2a065ad1, type: 3}
+  - {fileID: 8300000, guid: 50836f7deac9b51499c9a76f08d97a2a, type: 3}
+  - {fileID: 8300000, guid: bdefc35a31ed8534182296da69f5acdb, type: 3}
+  - {fileID: 8300000, guid: 0f50639e9c8cb8447bbc4e9ef5aa183c, type: 3}
+  - {fileID: 8300000, guid: 8ad06fd0c7283354798696844aad416b, type: 3}
+  - {fileID: 8300000, guid: 957bcb51c88ff5741b8106d1c12a38ed, type: 3}
+  - {fileID: 8300000, guid: 440d0728e50f73e41b1fed236b478db0, type: 3}
+  - {fileID: 8300000, guid: d810f2dbb183b334c8ecd53b06235706, type: 3}
+  - {fileID: 8300000, guid: 3b8c5fb5d1da0334e8edcba109c63a5b, type: 3}
+  - {fileID: 8300000, guid: f7734b91b2817b248a16db47ef063049, type: 3}
+  - {fileID: 8300000, guid: 8f2353e49d09ba14c938867d325c897f, type: 3}
+  - {fileID: 8300000, guid: bcceb076fc821e94a89b4da7168eebd4, type: 3}
+  - {fileID: 8300000, guid: 982d9c4660fae074eaadadb516596178, type: 3}
+  - {fileID: 8300000, guid: 8b8fb42179b191d4ca7a32f095036345, type: 3}
+  - {fileID: 8300000, guid: e1e4d2f210b93c54eb51cd843adc7421, type: 3}
+  - {fileID: 8300000, guid: 4110c8d1d518ecb41bc837d4d0e22e80, type: 3}
+  - {fileID: 8300000, guid: 58555e339f675af42ab5061330b397f7, type: 3}
+  - {fileID: 8300000, guid: fd226e2e2f4679b48a953116391b6a3f, type: 3}
+  - {fileID: 8300000, guid: f721412ac1376c34493afcbd71e05003, type: 3}
+  - {fileID: 8300000, guid: 2089d77d770567f458e4a382330a4289, type: 3}
+  - {fileID: 8300000, guid: a37790e80bb27f4468d1df61fe532ded, type: 3}
+  - {fileID: 8300000, guid: 1709d7e2dccc13d4baadf0e858494a89, type: 3}
+  - {fileID: 8300000, guid: 47a3350ff9cb0f2449c36ca5de4ba6e2, type: 3}

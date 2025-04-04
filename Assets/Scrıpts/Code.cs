@@ -4,19 +4,18 @@ using UnityEngine;
 public class Code : ScriptableObject
 {
     private AudioClip[] audioClips; //the clips of sound that make up this code. starts empty.
-    [SerializeField] private string codeString; // the raw code string
-    [SerializeField] private SoundLibrary soundLibrary;
+    [SerializeField] private string _codeString; // the raw code string
+    [SerializeField] private SoundLibrary _soundLibrary;
 
-    private void BuildAudioClips()
+    public void BuildAudioClips(string scrambledCode)
     {
-        codeString.ToLower();
+        //The Audioclip sequence is built from the SCRAMBLED version of the codeString.
+        audioClips = new AudioClip[GetCodeLength()];
         for (int i = 0; i < GetCodeLength(); i++)
         {
-            audioClips[i] = soundLibrary.GetAudioClip(codeString[i] - 'a');
+            audioClips[i] = _soundLibrary.GetAudioClip(scrambledCode[i] - 'a');
         }
     }
-
-
 
     public AudioClip GetCodeSound(int idx)
     {
@@ -25,12 +24,14 @@ public class Code : ScriptableObject
 
     public int GetCodeLength()
     {
-        return codeString.Length;
+        return _codeString.Length;
     }
 
     public string GetCodeString()
     {
-        return codeString;
+        return _codeString.ToLower();
     }
+
+
 
 }
