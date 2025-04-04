@@ -6,20 +6,30 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] private Image[] _codeLight;
     [SerializeField] private Color[] _colorArray;
     [SerializeField] private TMP_Text _text;
 
-    public string trueWord = "Fork";
-    //private string codedWord = "";
+    [Header("Code Handling")]
+    [SerializeField] private SoundPlayer _soundPlayer;
+    [SerializeField] private Code[] _codes;
+    private Code currCode;
+
+    enum CodeColor { Red, Green, Blue, Yellow};
 
     private void Start()
     {
-        SetColors();
+        PickNewCode();
+        //SetColors();
+        //Scrambler();
+    }
 
-        Scrambler();
-
-
+    public void PickNewCode()
+    {
+        currCode = _codes[Random.Range(0, _codes.Length)];
+        currCode.BuildAudioClips();
+        _soundPlayer.NewCode(currCode);
     }
 
     public string Scrambler()
@@ -27,22 +37,22 @@ public class GameManager : MonoBehaviour
 
         bool isThereRed = false;
 
-        StringBuilder codedWord = new StringBuilder(trueWord);
+        StringBuilder scrambledWord = new StringBuilder(currCode.GetCodeString());
 
         for(int i = 3; i >= 0; i--)
         {
             //RED
             if (_codeLight[i].color == _colorArray[0])
             {
-                Debug.Log("Did red!");
+                //Debug.Log("Did red!");
                 //swap first two letters, and two last letters.
-                char tempchar = codedWord[0];
-                codedWord[0] = codedWord[1];
-                codedWord[1] = tempchar;
+                char tempchar = scrambledWord[0];
+                scrambledWord[0] = scrambledWord[1];
+                scrambledWord[1] = tempchar;
 
-                tempchar = codedWord[2];
-                codedWord[2] = codedWord[3];
-                codedWord[3] = tempchar;
+                tempchar = scrambledWord[2];
+                scrambledWord[2] = scrambledWord[3];
+                scrambledWord[3] = tempchar;
 
                 isThereRed = true;
             }
@@ -50,7 +60,7 @@ public class GameManager : MonoBehaviour
             //BLUE
             if (_codeLight[i].color == _colorArray[1])
             {
-                Debug.Log("Did blue!");
+                //Debug.Log("Did blue!");
                 //first, check for a red
                 if (!isThereRed)
                 {
@@ -66,28 +76,28 @@ public class GameManager : MonoBehaviour
                 //there IS red
                 if (isThereRed)
                 {
-                    char tempchar = codedWord[i];
-                    codedWord[i] = codedWord[3];
-                    codedWord[3] = tempchar;
+                    char tempchar = scrambledWord[i];
+                    scrambledWord[i] = scrambledWord[3];
+                    scrambledWord[3] = tempchar;
                 }
             }
 
             //GREEN
             if (_codeLight[i].color == _colorArray[2])
             {
-                Debug.Log("Did green!");
+                //Debug.Log("Did green!");
                 //if at the ends, swap them.
                 if (i == 0 || i == 3)
                 {
-                    char tempchar = codedWord[0];
-                    codedWord[0] = codedWord[3];
-                    codedWord[3] = tempchar;
+                    char tempchar = scrambledWord[0];
+                    scrambledWord[0] = scrambledWord[3];
+                    scrambledWord[3] = tempchar;
                 }
                 else //otherwise, swap the middle.
                 {
-                    char tempchar = codedWord[1];
-                    codedWord[1] = codedWord[2];
-                    codedWord[2] = tempchar;
+                    char tempchar = scrambledWord[1];
+                    scrambledWord[1] = scrambledWord[2];
+                    scrambledWord[2] = tempchar;
                 }
             }
 
@@ -95,31 +105,24 @@ public class GameManager : MonoBehaviour
             if (_codeLight[i].color == _colorArray[3])
             {
 
-                Debug.Log("Did yellow!");
+                //Debug.Log("Did yellow!");
                 if (i == 3)
                 {
-                    char tempchar = codedWord[0];
-                    codedWord[0] = codedWord[3];
-                    codedWord[3] = tempchar;
+                    char tempchar = scrambledWord[0];
+                    scrambledWord[0] = scrambledWord[3];
+                    scrambledWord[3] = tempchar;
                 } 
                 else
                 {
-                    char tempchar = codedWord[i+1];
-                    codedWord[i+1] = codedWord[i];
-                    codedWord[i] = tempchar;
+                    char tempchar = scrambledWord[i+1];
+                    scrambledWord[i+1] = scrambledWord[i];
+                    scrambledWord[i] = tempchar;
                 }
-
-                
             }
-
-            Debug.Log("Current Word: " + codedWord.ToString());
         }
+        _text.SetText("Code: " + scrambledWord.ToString());
 
-        Debug.Log("Is there a red? : " + isThereRed);
-
-        _text.SetText("Code: " + codedWord.ToString());
-
-        return codedWord.ToString();
+        return scrambledWord.ToString();
     }
 
     public void SetColors()
@@ -134,7 +137,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckAnswer(TMP_InputField input)
     {
-        if (input.text ==  trueWord)
+        if (input.text ==  currCode.GetCodeString())
         {
             Debug.Log("Hooray");
         }
@@ -143,4 +146,6 @@ public class GameManager : MonoBehaviour
             Debug.Log("Not correct word");
         }
     }
+
+
 }

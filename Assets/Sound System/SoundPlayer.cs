@@ -21,8 +21,15 @@ public class SoundPlayer : MonoBehaviour
     }
     
 
-    private void PlaySounds(AudioClip[] audioClips){
-        StartCoroutine(PlaySoundsSequentially(audioClips));
+    public void PlaySounds(){
+        if (_codeClips.Length > 0)
+        {
+            StartCoroutine(PlaySoundsSequentially(_codeClips));
+        }
+        else
+        {
+            Debug.Log("Tried to play a sound while _codeClips was empty!");
+        }
     }
 
 

@@ -7,9 +7,11 @@ public class Code : ScriptableObject
     [SerializeField] private string codeString; // the raw code string
     [SerializeField] private SoundLibrary soundLibrary;
 
-    private void BuildAudioClips()
+
+    public void BuildAudioClips()
     {
-        codeString.ToLower();
+        audioClips = new AudioClip[GetCodeLength()];
+        codeString = codeString.ToLower();
         for (int i = 0; i < GetCodeLength(); i++)
         {
             audioClips[i] = soundLibrary.GetAudioClip(codeString[i] - 'a');

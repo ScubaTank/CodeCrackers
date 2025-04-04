@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SignalPanelManager : MonoBehaviour
 {
-    [SerializeField] AudioSource _audioSource;
+    [SerializeField] SoundPlayer _soundPlayer;
 
     private void Start()
     {
@@ -16,6 +16,6 @@ public class SignalPanelManager : MonoBehaviour
 
     public void PlaySound()
     {
-        _audioSource.Play();
+        _soundPlayer.PlaySounds();
     }
 }
