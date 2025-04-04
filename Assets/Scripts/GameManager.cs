@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private TMP_Text _text;
+    [SerializeField] private GameObject _WinScreen;
+    [SerializeField] private GameObject _LoseScreen;
 
     [Header("Code Handling")]
     [SerializeField] private SoundPlayer _soundPlayer;
@@ -150,17 +152,29 @@ public class GameManager : MonoBehaviour
     {
         if (input.text ==  _currCode.GetCodeString())
         {
-            Debug.Log("Hooray");
+            PlayerWins();
         }
         else
         {
-            Debug.Log("Not correct word");
+            PlayerLoses();
         }
     }
 
     public CodeColor[] GetColorSequence()
     {
         return _colorSequence;
+    }
+
+    private void PlayerWins()
+    {
+        _WinScreen.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void PlayerLoses()
+    {
+        _LoseScreen.SetActive(true);
+        Time.timeScale = 0;
     }
 
 }

@@ -5,8 +5,6 @@ using UnityEngine.UI;
 public class ButtonManager : MonoBehaviour
 {
     [SerializeField] private GameObject _canvasGameObject;
-    [SerializeField] private ScoreManager _scoreManager;
-    [SerializeField] private GameObject _settings;
 
     private bool isPaused = false;
     private GameObject panelButtons;
@@ -14,11 +12,6 @@ public class ButtonManager : MonoBehaviour
     public void OpenPanel (GameObject panelGameObject)
     {
         panelGameObject.SetActive(true);
-    }
-
-    public void TempAddScoreButton()
-    {
-        _scoreManager.AddScore(10f);
     }
 
     public void PauseGame(GameObject pauseMenu)
@@ -75,6 +68,7 @@ public class ButtonManager : MonoBehaviour
     public void playGame()
     {
         SceneManager.LoadScene("Level_01");
+        Time.timeScale = 1;
     }
 
     public void exitGame()
@@ -87,9 +81,18 @@ public class ButtonManager : MonoBehaviour
         SceneManager.LoadScene("Main_Menu");
     }
 
-    public void OpenSettings()
+    public void OpenSettings(GameObject _settings)
     {
         _settings.SetActive(true);
     }
 
+    public void ChangeVolume(Slider volumeSlider)
+    {
+        AudioListener.volume = volumeSlider.value;
+    }
+
+    public void AudioOnOff(Toggle toggle)
+    {
+        AudioListener.pause = toggle.isOn;
+    }
 }
