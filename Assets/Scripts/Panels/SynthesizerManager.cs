@@ -38,14 +38,19 @@ public class SynthesizerManager : MonoBehaviour
 
     public void Confirm()
     {
-        if(_currentIdx != 3 && _guessString[_currentIdx] != '_')
-        {
-            _currentIdx++;
-        } 
-        else
+        if(_currentIdx == 3)
         {
             _lightsManager.EnableLights(_guessString.ToString());
         }
+
+        if(_currentIdx != 3 && _guessString[_currentIdx] != '_')
+        {
+            _currentIdx++;
+            
+        } 
+        
+
+        //Debug.Log("CurrIdx = " + _currentIdx);
         UpdateTextField();
     }
 
