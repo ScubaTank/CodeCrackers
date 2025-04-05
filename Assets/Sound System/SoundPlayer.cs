@@ -1,9 +1,4 @@
-using System;
 using System.Collections;
-using Mono.Cecil.Cil;
-using NUnit.Framework.Interfaces;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoundPlayer : MonoBehaviour

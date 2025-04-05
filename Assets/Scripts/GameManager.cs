@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [Header("UI")]
-    [SerializeField] private TMP_Text _text;
     [SerializeField] private GameObject _WinScreen;
     [SerializeField] private GameObject _LoseScreen;
 
     [Header("Code Handling")]
+    [SerializeField] private float _timer;
     [SerializeField] private SoundPlayer _soundPlayer;
     [SerializeField] private Code[] _codes;
     private CodeColor[] _colorSequence;
@@ -131,7 +131,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        _text.SetText("Code: " + scrambledWord.ToString());
 
         return scrambledWord.ToString().ToLower();
     }
@@ -157,6 +156,7 @@ public class GameManager : MonoBehaviour
         else
         {
             PlayerLoses();
+
         }
     }
 
@@ -177,4 +177,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    public float GetTimer(){
+        return _timer;
+    }
 }

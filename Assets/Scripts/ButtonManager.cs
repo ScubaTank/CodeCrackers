@@ -11,7 +11,11 @@ public class ButtonManager : MonoBehaviour
 
     public void OpenPanel (GameObject panelGameObject)
     {
-        panelGameObject.SetActive(true);
+        if(panelGameObject.activeInHierarchy){
+            panelGameObject.SetActive(false);
+        } else {
+            panelGameObject.SetActive(true);
+        }
     }
 
     public void PauseGame(GameObject pauseMenu)
@@ -38,7 +42,7 @@ public class ButtonManager : MonoBehaviour
 
             // close all panels
             GameObject[] panels = GameObject.FindGameObjectsWithTag("Panel");
-            for (var i = 0; i < objs.Length; i++)
+            for (var i = 0; i < panels.Length; i++)
             {
                 panels[i].SetActive(false);
             }
@@ -65,9 +69,10 @@ public class ButtonManager : MonoBehaviour
 
     }
 
-    public void playGame()
+    public void playGame(string level)
     {
-        SceneManager.LoadScene("Level_01");
+        //this specific function was done by Camilo.
+        SceneManager.LoadScene(level);
         Time.timeScale = 1;
     }
 

@@ -4,9 +4,13 @@ using UnityEngine;
 public class Timer : MonoBehaviour
 {
     [SerializeField] private TMP_Text _timerText;
-    [SerializeField] private float _timerLength = 120f;
     [SerializeField] private GameManager _gameManager;
+    private float _timerLength;
 
+    void Awake()
+    {
+        _timerLength = _gameManager.GetTimer();
+    }
     // Update is called once per frame
     void Update()
     {

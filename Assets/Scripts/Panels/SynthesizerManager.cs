@@ -9,6 +9,7 @@ public class SynthesizerManager : MonoBehaviour
 
     [Header("Code Guessing")]
     [SerializeField] private TMP_Text _textField;
+    [SerializeField] private TMP_Text _uiTextField;
     [SerializeField] private SoundPlayer _soundPlayer;
     private int _currentIdx;
     private StringBuilder _guessString;
@@ -56,10 +57,7 @@ public class SynthesizerManager : MonoBehaviour
 
     public void Play()
     {
-        //uh oh... gotta play the sequence we built here...
         _soundPlayer.PlaySynthClips(_guessString.ToString());
-
-
     }
 
     public void Remove()
@@ -76,5 +74,6 @@ public class SynthesizerManager : MonoBehaviour
     private void UpdateTextField()
     {
         _textField.text = "Code: " + _guessString.ToString();
+        _uiTextField.text = _guessString.ToString();
     }
 }
